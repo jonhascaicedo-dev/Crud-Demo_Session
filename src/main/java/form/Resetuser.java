@@ -105,26 +105,26 @@ public class Resetuser extends javax.swing.JFrame {
 
         String correo = emailField.getText();
         
-//        if (!"".equals(correo)) {
-//            Resend resend = new Resend("");
-//
-//            CreateEmailOptions params = CreateEmailOptions.builder()
-//                    .from("onboarding@resend.dev") // Dirección por defecto para pruebas
-//                    .to(correo)
-//                    .subject("Prueba de correo desde Java")
-//                    .html("<h1>¡Hola desde Java!</h1><p>Este es un correo enviado con la API de Resend.</p>")
-//                    .build();
-//
-//            try {
-//                // 3. Envía el correo
-//                CreateEmailResponse data = resend.emails().send(params);
-//                System.out.println("Correo enviado con éxito. ID: " + data.getId());
-//            } catch (ResendException e) {
-//                System.err.println("Error al enviar el correo: " + e.getMessage());
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, " " + "Digite un correo");
-//        }
+        if (!"".equals(correo)) {
+            Resend resend = new Resend("");
+
+            CreateEmailOptions params = CreateEmailOptions.builder()
+                    .from("onboarding@resend.dev") // Dirección por defecto para pruebas
+                    .to(correo)
+                    .subject("Prueba de correo desde Java")
+                    .html("<h1>¡Hola desde Java!</h1><p>Este es un correo enviado con la API de Resend.</p>")
+                    .build();
+
+            try {
+                // 3. Envía el correo
+                CreateEmailResponse data = resend.emails().send(params);
+                System.out.println("Correo enviado con éxito. ID: " + data.getId());
+            } catch (ResendException e) {
+                System.err.println("Error al enviar el correo: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, " " + "Digite un correo");
+        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
