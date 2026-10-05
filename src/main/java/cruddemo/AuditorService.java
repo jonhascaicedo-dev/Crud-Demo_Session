@@ -1,6 +1,5 @@
 package cruddemo;
 
-import entity.Client;
 import entity.Movement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +18,6 @@ public class AuditorService extends ServiceApp {
     protected Connection connection;
 
     public AuditorService() {
-        //super();
         connection = super.customConnection("auditoryapp", "root", "root");
     }
 
