@@ -11,14 +11,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class ClientService extends ServiceApp {
 
-    Connection connection;
+    protected Connection connection;
 
     public ClientService() {
-        //super();
+        
         connection = super.getConnection();
     }
 
@@ -47,6 +47,11 @@ public class ClientService extends ServiceApp {
         return create;
     }
 
+    /**
+     * 
+     * @return List
+    **
+     */
     public List<Client> listClients() {
 
         try {
@@ -80,7 +85,7 @@ public class ClientService extends ServiceApp {
     }
 
     /**
-     * buscar por una llave unique
+     * TODO buscar por una llave unique
      *
      * @param nombre
      * @return 
