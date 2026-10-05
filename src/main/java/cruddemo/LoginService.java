@@ -6,23 +6,19 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class LoginService {
 
-    private static final String SELECT_USER_BY_ID = "select id,nombre,pwd,email from login where id =?";
     private static final String SELECT_USER_ = "select * from login where nombre=? AND pwd=?";
-    //"Select * from users WHERE username = ? AND password = ?"
-    /*
-        INSERT INTO `login` (`id`, `nombre`, `pwd`, `email`) VALUES (NULL, 'admintest', 'root1', 'adminemail@')
-     */
-    //private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
+
     private String jdbcURL = "jdbc:mysql://localhost:3306/logindemo?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
+    private String jdbcUsername = "";
+    private String jdbcPassword = "";
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -35,6 +31,13 @@ public class LoginService {
         return connection;
     }
 
+      /**
+     * 
+     * @param strn1 usuario 
+     * @param strn2 contraseña
+     * @return User
+    **
+     */
     public User login(String strn1, String strn2) {
 
         User  user = new User();
@@ -64,13 +67,9 @@ public class LoginService {
                 user.setRol(rol);
             }
         } catch (SQLException e) {
-
+            Logger.getLogger("").log(null, e.getMessage());
         }
         return user;
     }
 
-    public static void main(String[] args) {
-        LoginService service = new LoginService();
-        service.getConnection();
-    }
 }

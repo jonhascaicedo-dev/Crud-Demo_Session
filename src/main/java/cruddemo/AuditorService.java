@@ -18,12 +18,12 @@ public class AuditorService extends ServiceApp {
     protected Connection connection;
 
     public AuditorService() {
-        connection = super.customConnection("auditoryapp", "root", "root");
+        connection = super.customConnection("auditoryapp", "", "");
     }
 
      /***
      * 
-     * @return List<Movement>
+     * @return List Movement
      * @see Get movements from auditor layer
      ***/
     public List<Movement> listLogin() {
@@ -34,7 +34,7 @@ public class AuditorService extends ServiceApp {
     
     /***
      * 
-     * @return List<Movement>
+     * @return List Movement 
      * @see Get movements from auditor layer
      ***/
     public List<Movement> listMovements() {
