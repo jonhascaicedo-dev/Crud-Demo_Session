@@ -17,6 +17,12 @@ public class ServiceApp {
     private String jdbcUsername = "root";
     private String jdbcPassword = "root";
 
+    /***
+     * 
+     * 
+     * @param connection
+     * @return boolean
+     ***/
     protected boolean closeConnection(Connection connection) {
 
         try {

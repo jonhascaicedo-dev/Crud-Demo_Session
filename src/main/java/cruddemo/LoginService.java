@@ -20,6 +20,12 @@ public class LoginService {
     private String jdbcUsername = "";
     private String jdbcPassword = "";
 
+    
+    /***
+     * 
+     * 
+     * @return Connection
+     ***/
     protected Connection getConnection() {
         Connection connection = null;
         try {

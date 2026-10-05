@@ -16,6 +16,13 @@ public class SessionService extends ServiceApp {
 
     protected Session session;
 
+    /***
+     * 
+     * 
+     * @param s Session
+     * @return Session instancia de la session inicializada
+     * 
+     ***/
     public Session getSession(Session s) {
 
         if (s == null) {
@@ -31,6 +38,11 @@ public class SessionService extends ServiceApp {
         return this.session;
     }
 
+    /***
+     * 
+     * 
+     * @param s Sesssion instancia a setear
+     ***/
     public void setSession(Session s) {
         this.session = s;
     }
@@ -75,6 +87,14 @@ public class SessionService extends ServiceApp {
 
     }
 
+    /***
+     * 
+     * 
+     * @param url
+     * @param usr
+     * @param pwd
+     * @return Connection
+     ***/
     public static Connection getConection(String url, String usr, String pwd) {
 
         ServiceApp serviceApp = new ServiceApp();
@@ -82,6 +102,11 @@ public class SessionService extends ServiceApp {
         return serviceApp.customConnection(url, usr, pwd);
     }
 
+    /***
+     *
+     * 
+     * @return Connection
+     ***/
     public static Connection getConection() {
 
         ServiceApp serviceApp = new ServiceApp();
@@ -89,6 +114,12 @@ public class SessionService extends ServiceApp {
         return serviceApp.getConnection();
     }
 
+    /***
+     * 
+     * 
+     * @param session
+     * @return boolean false on session null 
+     ***/
     public boolean checkSession(Session session) {
 
         boolean x1 = false;

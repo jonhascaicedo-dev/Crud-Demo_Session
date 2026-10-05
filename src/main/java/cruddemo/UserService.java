@@ -11,21 +11,32 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class UserService extends ServiceApp {
 
-    Connection connection;
+    protected Connection connection;
 
     public UserService() {
-        //super();
+        
         connection = super.getConnection();
     }
     
+    /***
+     * 
+     * 
+     * @param user
+     * @return 
+     **/
     public boolean createUser(User user){
         return false;
     }
 
+    /***
+     *
+     * 
+     * @return user List
+     ***/
     public List<User> listUsers() {
 
         try {
