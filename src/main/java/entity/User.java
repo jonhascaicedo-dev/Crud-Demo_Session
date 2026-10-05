@@ -2,7 +2,7 @@ package entity;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class User {
 
@@ -28,8 +28,6 @@ public class User {
         this.username = username;
     }
 
-    
-    
     public int getId() {
         return id;
     }

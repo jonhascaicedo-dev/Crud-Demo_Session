@@ -11,7 +11,7 @@ import javax.swing.KeyStroke;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class Warning extends javax.swing.JDialog {
 
@@ -28,6 +28,10 @@ public class Warning extends javax.swing.JDialog {
 
     /**
      * Creates new form NewOkCancelDialog
+     * @param parent
+     * @param modal
+     * @param session
+     * @param counter
      */
     public Warning(java.awt.Frame parent, boolean modal, Session session, int counter) {
 

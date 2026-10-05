@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class CreateUser extends javax.swing.JFrame {
 
@@ -17,12 +17,12 @@ public class CreateUser extends javax.swing.JFrame {
     protected Session session;
 
     /**
-     * Creates new form CreateUser
+     * *
+     *
+     *
+     * @param s <p>Session de usuario</p>
+ *
      */
-//    public CreateUser() {
-//        initComponents();
-//    }
-
     public CreateUser(Session s) {
 
         sessionservice = new SessionService();
@@ -251,7 +251,7 @@ public class CreateUser extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        
+
         AuditorForm auditorForm = new AuditorForm(session);
         auditorForm.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed

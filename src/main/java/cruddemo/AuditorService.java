@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class AuditorService extends ServiceApp {
 

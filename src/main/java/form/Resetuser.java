@@ -1,21 +1,21 @@
 package form;
 
 import entity.Session;
-
 import javax.swing.JOptionPane;
-
 import com.resend.Resend;
 import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
+import err.Err_login;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class Resetuser extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Resetuser.class.getName());
+    private static final java.util.logging.Logger logger = 
+            java.util.logging.Logger.getLogger(Resetuser.class.getName());
 
     protected Session session;
 
@@ -34,17 +34,17 @@ public class Resetuser extends javax.swing.JFrame {
         System.out.println(session.geterrLogin());
     }
 
-//    public Resetuser(Err_login flag) {
-//        initComponents();
-//        System.out.println(flag.getCounter());    
-//        System.out.println(flag.getErr());    
-//        this.setVisible(true);
-//        
-//        if (flag.getCounter() == 3) {
-//            
-//            this.setVisible(true);
-//        }
-//    }
+    public Resetuser(Err_login flag) {
+        initComponents();
+        System.out.println(flag.getCounter());    
+        System.out.println(flag.getErr());    
+        this.setVisible(true);
+        
+        if (flag.getCounter() == 3) {
+            
+            this.setVisible(true);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,26 +105,26 @@ public class Resetuser extends javax.swing.JFrame {
 
         String correo = emailField.getText();
         
-        if (!"".equals(correo)) {
-            Resend resend = new Resend("");
-
-            CreateEmailOptions params = CreateEmailOptions.builder()
-                    .from("onboarding@resend.dev") // Dirección por defecto para pruebas
-                    .to(correo)
-                    .subject("Prueba de correo desde Java")
-                    .html("<h1>¡Hola desde Java!</h1><p>Este es un correo enviado con la API de Resend.</p>")
-                    .build();
-
-            try {
-                // 3. Envía el correo
-                CreateEmailResponse data = resend.emails().send(params);
-                System.out.println("Correo enviado con éxito. ID: " + data.getId());
-            } catch (ResendException e) {
-                System.err.println("Error al enviar el correo: " + e.getMessage());
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, " " + "Digite un correo");
-        }
+//        if (!"".equals(correo)) {
+//            Resend resend = new Resend("");
+//
+//            CreateEmailOptions params = CreateEmailOptions.builder()
+//                    .from("onboarding@resend.dev") // Dirección por defecto para pruebas
+//                    .to(correo)
+//                    .subject("Prueba de correo desde Java")
+//                    .html("<h1>¡Hola desde Java!</h1><p>Este es un correo enviado con la API de Resend.</p>")
+//                    .build();
+//
+//            try {
+//                // 3. Envía el correo
+//                CreateEmailResponse data = resend.emails().send(params);
+//                System.out.println("Correo enviado con éxito. ID: " + data.getId());
+//            } catch (ResendException e) {
+//                System.err.println("Error al enviar el correo: " + e.getMessage());
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, " " + "Digite un correo");
+//        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

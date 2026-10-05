@@ -10,13 +10,14 @@ import java.util.Date;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class Login extends javax.swing.JFrame {
 
     protected SessionService sessionService;
     protected Session session;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
+    private static final java.util.logging.Logger logger = 
+            java.util.logging.Logger.getLogger(Login.class.getName());
 
     /**
      * Creates new form login
