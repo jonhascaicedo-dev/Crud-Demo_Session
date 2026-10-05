@@ -17,13 +17,6 @@ public class CreateClient extends javax.swing.JFrame {
     protected Session session;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CreateClient.class.getName());
 
-    /**
-     * Creates new form createClient
-     */
-    public CreateClient() {
-        initComponents();
-    }
-
     /***
      * 
      * 

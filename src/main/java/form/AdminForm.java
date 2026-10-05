@@ -43,11 +43,11 @@ public class AdminForm extends javax.swing.JFrame {
             buttonCreateUsr.setEnabled(false);
             buttonListUser.setEnabled(false);
         }
-        if (s.getUser() != null) {
-
-            labelusr.setText(s.getUser().getRol());
-            this.setVisible(true);
-        }
+//        if (s.getUser() != null) {
+//
+//            labelusr.setText(s.getUser().getRol());
+//            this.setVisible(true);
+//        }
 
     }
 
@@ -269,12 +269,12 @@ public class AdminForm extends javax.swing.JFrame {
     private void buttonCreateUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateUsrActionPerformed
         // TODO add your handling code here:
 
-        if (false == sessionService.checkSession(session)) {
-            buttonCreateUsr.setEnabled(false);
-        }
+//        if (false == sessionService.checkSession(session)) {
+//            buttonCreateUsr.setEnabled(false);
+//        }
         CreateUser createUser = new CreateUser(session);
         createUser.setVisible(true);
-        this.setVisible(false);
+        //this.setVisible(false);
 
     }//GEN-LAST:event_buttonCreateUsrActionPerformed
 

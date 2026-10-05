@@ -1,17 +1,16 @@
 package entity;
 
-import cruddemo.SessionService;
+
 import err.Err_login;
-import java.util.Date;
-import java.sql.Connection;
+
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class Session {
 
-    //protected SessionService sessionService;
+    
     protected Err_login err_login;
     protected Error apperror;
     protected User user;

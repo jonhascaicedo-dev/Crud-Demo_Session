@@ -6,7 +6,7 @@ import com.resend.Resend;
 import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
-import err.Err_login;
+import cruddemo.SessionService;
 
 /**
  *
@@ -14,42 +14,30 @@ import err.Err_login;
  */
 public class Resetuser extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = 
-            java.util.logging.Logger.getLogger(Resetuser.class.getName());
+    private static final java.util.logging.Logger logger
+            = java.util.logging.Logger.getLogger(Resetuser.class.getName());
 
+    protected SessionService sessionservice;
     protected Session session;
 
-    
+    /**
+     * *
+     *
+     *
+     * @param s
+     **
+     */
+    public Resetuser(Session s) {
 
-    /***
-     * 
-     * 
-     * @param session
-     ***/
-    public Resetuser(Session session) {
-
-        initComponents();
-        this.session = session;
-        System.out.println(session.geterrLogin());
-    }
-
-    /***
-     * 
-     * 
-     *  
-     * @param flag
-     ***/
-    public Resetuser(Err_login flag) {
-        initComponents();
-        System.out.println(flag.getCounter());    
-        System.out.println(flag.getErr());    
-        this.setVisible(true);
-        
-        if (flag.getCounter() == 3) {
-            
-            this.setVisible(true);
+        sessionservice = new SessionService();
+        if (!sessionservice.checkSession(s)) {//session iniciada
+            initComponents();
+            this.session = sessionservice.getSession(s);
+            //tittleLabel.setText(session.geterrLogin());
         }
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,21 +47,21 @@ public class Resetuser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        tittleLabel = new javax.swing.JLabel();
+        correoLabel = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        enviarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Recordar usuario");
+        tittleLabel.setText("Recordar usuario");
 
-        jLabel2.setText("Correo");
+        correoLabel.setText("Correo");
 
         emailField.setText(" ");
 
-        jButton1.setText("enviar");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        enviarButton.setText("enviar");
+        enviarButton.addActionListener(this::enviarButtonActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,9 +70,9 @@ public class Resetuser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enviarButton)
+                    .addComponent(correoLabel)
+                    .addComponent(tittleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
@@ -92,24 +80,24 @@ public class Resetuser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addComponent(tittleLabel)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel2)
+                .addComponent(correoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(jButton1)
+                .addComponent(enviarButton)
                 .addContainerGap(137, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void enviarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarButtonActionPerformed
         // TODO add your handling code here:emailField
 
         String correo = emailField.getText();
-        
+
         if (!"".equals(correo)) {
             Resend resend = new Resend("");
 
@@ -132,13 +120,13 @@ public class Resetuser extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_enviarButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel correoLabel;
     private javax.swing.JTextField emailField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton enviarButton;
+    private javax.swing.JLabel tittleLabel;
     // End of variables declaration//GEN-END:variables
 }

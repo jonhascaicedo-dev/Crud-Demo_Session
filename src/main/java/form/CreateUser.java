@@ -11,7 +11,8 @@ import javax.swing.JOptionPane;
  */
 public class CreateUser extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CreateUser.class.getName());
+    private static final java.util.logging.Logger logger 
+            = java.util.logging.Logger.getLogger(CreateUser.class.getName());
 
     protected SessionService sessionservice;
     protected Session session;
@@ -26,10 +27,11 @@ public class CreateUser extends javax.swing.JFrame {
     public CreateUser(Session s) {
 
         sessionservice = new SessionService();
-        if (!sessionservice.checkSession(s)) {//session iniciada
-            initComponents();
-            this.session = sessionservice.getSession(s);
-        }
+        initComponents();
+//        if (!sessionservice.checkSession(s)) {//session iniciada
+//            initComponents();
+//            this.session = sessionservice.getSession(s);
+//        }
     }
 
     /**
@@ -45,7 +47,7 @@ public class CreateUser extends javax.swing.JFrame {
         clavefield = new javax.swing.JTextField();
         correofield = new javax.swing.JTextField();
         saldoField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        createUsrBtton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -53,11 +55,10 @@ public class CreateUser extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        item1AdminForm = new javax.swing.JMenuItem();
+        item2AuditorForm = new javax.swing.JMenuItem();
+        item3CreateClient = new javax.swing.JMenuItem();
+        item4ResetUsr = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,8 +91,8 @@ public class CreateUser extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("crear");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        createUsrBtton.setText("crear");
+        createUsrBtton.addActionListener(this::createUsrBttonActionPerformed);
 
         jLabel1.setText("Nombre");
 
@@ -105,22 +106,21 @@ public class CreateUser extends javax.swing.JFrame {
 
         jMenu4.setText("File");
 
-        jMenuItem3.setText("Admin form");
-        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
-        jMenu4.add(jMenuItem3);
+        item1AdminForm.setText("Admin form");
+        item1AdminForm.addActionListener(this::item1AdminFormActionPerformed);
+        jMenu4.add(item1AdminForm);
 
-        jMenuItem4.setText("Auditor form");
-        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
-        jMenu4.add(jMenuItem4);
+        item2AuditorForm.setText("Auditor form");
+        item2AuditorForm.addActionListener(this::item2AuditorFormActionPerformed);
+        jMenu4.add(item2AuditorForm);
 
-        jMenuItem5.setText("Crear client");
-        jMenu4.add(jMenuItem5);
+        item3CreateClient.setText("Crear client");
+        item3CreateClient.addActionListener(this::item3CreateClientActionPerformed);
+        jMenu4.add(item3CreateClient);
 
-        jMenuItem6.setText("Reset user");
-        jMenu4.add(jMenuItem6);
-
-        jMenuItem7.setText("jMenuItem7");
-        jMenu4.add(jMenuItem7);
+        item4ResetUsr.setText("Reset user");
+        item4ResetUsr.addActionListener(this::item4ResetUsrActionPerformed);
+        jMenu4.add(item4ResetUsr);
 
         jMenuBar2.add(jMenu4);
 
@@ -135,7 +135,7 @@ public class CreateUser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(createUsrBtton)
                 .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -184,14 +184,14 @@ public class CreateUser extends javax.swing.JFrame {
                     .addComponent(saldoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(45, 45, 45)
-                .addComponent(jButton1)
+                .addComponent(createUsrBtton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createUsrBttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUsrBttonActionPerformed
         // TODO add your handling code here:
 
         String nombre = nombrefield.getText();
@@ -221,46 +221,67 @@ public class CreateUser extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, "Digite un valor numerico");
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createUsrBttonActionPerformed
 
     private void nombrefieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombrefieldFocusGained
         // TODO add your handling code here:
         nombrefield.setText("");
+        this.setVisible(false);
     }//GEN-LAST:event_nombrefieldFocusGained
 
     private void clavefieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_clavefieldFocusGained
         // TODO add your handling code here:
         clavefield.setText("");
+        this.setVisible(false);
     }//GEN-LAST:event_clavefieldFocusGained
 
     private void correofieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correofieldFocusGained
         // TODO add your handling code here:
         correofield.setText("");
+        
     }//GEN-LAST:event_correofieldFocusGained
 
     private void saldoFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saldoFieldFocusGained
         // TODO add your handling code here:
         saldoField.setText("");
+         
     }//GEN-LAST:event_saldoFieldFocusGained
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void item1AdminFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item1AdminFormActionPerformed
         // TODO add your handling code here:
         AdminForm adminForm = new AdminForm(session);
         adminForm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_item1AdminFormActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void item2AuditorFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item2AuditorFormActionPerformed
         // TODO add your handling code here:
 
         AuditorForm auditorForm = new AuditorForm(session);
         auditorForm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_item2AuditorFormActionPerformed
+
+    
+    private void item4ResetUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item4ResetUsrActionPerformed
+        // TODO add your handling code here:
+        Resetuser resetUser = new Resetuser(session);
+        resetUser.setVisible(true);
+    }//GEN-LAST:event_item4ResetUsrActionPerformed
+
+    private void item3CreateClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item3CreateClientActionPerformed
+        // TODO add your handling code here:
+        CreateClient createClient = new CreateClient(session);
+        createClient.setVisible(true);
+    }//GEN-LAST:event_item3CreateClientActionPerformed
 //
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField clavefield;
     private javax.swing.JTextField correofield;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton createUsrBtton;
+    private javax.swing.JMenuItem item1AdminForm;
+    private javax.swing.JMenuItem item2AuditorForm;
+    private javax.swing.JMenuItem item3CreateClient;
+    private javax.swing.JMenuItem item4ResetUsr;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -269,11 +290,6 @@ public class CreateUser extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JTextField nombrefield;
     private javax.swing.JTextField saldoField;
     // End of variables declaration//GEN-END:variables
