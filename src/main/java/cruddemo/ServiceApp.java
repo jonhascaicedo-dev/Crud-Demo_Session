@@ -6,17 +6,13 @@ import java.sql.SQLException;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class ServiceApp {
 
     private static final String SELECT_USER_BY_ID = "select id,nombre,pwd,email from login where id =?";
     private static final String SELECT_USER_ = "select * from login where nombre=? AND pwd=?";
-    //"Select * from users WHERE username = ? AND password = ?"
-    /*
-        INSERT INTO `login` (`id`, `nombre`, `pwd`, `email`) VALUES (NULL, 'admintest', 'root1', 'adminemail@')
-     */
-    //private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
+
     private String jdbcURL = "jdbc:mysql://localhost:3306/logindemo?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "root";
@@ -33,6 +29,10 @@ public class ServiceApp {
         return true;
     }
 
+    /***
+     * 
+     * @return Connection
+     **/
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -44,6 +44,14 @@ public class ServiceApp {
         return connection;
     }
 
+    /***
+     * 
+     * 
+     * @param database
+     * @param username
+     * @param password
+     * @return 
+     **/
     protected Connection customConnection(String database, String username, String password) {
         
         Connection connection = null;
@@ -58,8 +66,6 @@ public class ServiceApp {
         return connection;
     }
 
-    public ServiceApp() {
 
-    }
 
 }
