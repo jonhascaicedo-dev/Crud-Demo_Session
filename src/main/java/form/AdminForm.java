@@ -244,7 +244,7 @@ public class AdminForm extends javax.swing.JFrame {
         List<Client> clients = clientService.findClient(nombre);
 
         System.out.println(clients.size());
-        if (clients.size() == 0) {
+        if (clients.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Usuario no encontrado!");
         }
         for (int i = 0; i < clients.size(); i++) {
@@ -284,7 +284,6 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCreateUsrActionPerformed
 
     
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBuscarClient;
     private javax.swing.JButton buttonCreateClient;
