@@ -22,6 +22,12 @@ public class ClientService extends ServiceApp {
         connection = super.getConnection();
     }
 
+    /**
+     *
+     * @param Client 
+     * @return List
+    **
+     */
     public boolean createClient(Client client) {
 
         boolean create = false;
