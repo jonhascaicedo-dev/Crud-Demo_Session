@@ -7,7 +7,7 @@ import java.net.http.HttpResponse;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class EmailService {
 
@@ -39,12 +39,6 @@ public class EmailService {
                         e.printStackTrace();
                         return null;
                     });
-        }
-
-        public static void main(String[] args) {
-
-            
-            enviarCorreo("parmeniochsyanne@gmail.com", "1234");
         }
     }
 
