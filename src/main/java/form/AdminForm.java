@@ -22,12 +22,7 @@ public class AdminForm extends javax.swing.JFrame {
     protected Session session;
     protected SessionService sessionService;
 
-    /**
-     * Creates new form admin
-     */
-//    public AdminForm() {
-//        initComponents();
-//    }
+   
     /**
      * *
      *
@@ -216,7 +211,7 @@ public class AdminForm extends javax.swing.JFrame {
 
             table.addRow(row);
         }
-        //this.getClass().getMethod(name, null);
+     
         sessionService.setQuery(session.getUser(), new Date(), userService.getClass() + "createClient() list users");
     }//GEN-LAST:event_buttonListUserActionPerformed
 
@@ -234,7 +229,7 @@ public class AdminForm extends javax.swing.JFrame {
     private void buttonBuscarClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarClientActionPerformed
         // TODO add your handling code here:
 
-        // TODO add your handling code here:
+ 
         String[] columnas = {"ID", "Nombre", "clave", "correo", "saldo", "Editar", "Borrar"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
         tableResult.setModel(table);
@@ -244,7 +239,7 @@ public class AdminForm extends javax.swing.JFrame {
         List<Client> clients = clientService.findClient(nombre);
 
         System.out.println(clients.size());
-        if (clients.size() == 0) {
+        if (clients.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Usuario no encontrado!");
         }
         for (int i = 0; i < clients.size(); i++) {

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class CreateClient extends javax.swing.JFrame {
 
@@ -24,6 +24,11 @@ public class CreateClient extends javax.swing.JFrame {
         initComponents();
     }
 
+    /***
+     * 
+     * 
+     * @param s Session 
+     **/
     public CreateClient(Session s) {
 
         sessionservice = new SessionService();

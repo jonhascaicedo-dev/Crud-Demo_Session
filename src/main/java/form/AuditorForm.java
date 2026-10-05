@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class AuditorForm extends javax.swing.JFrame {
 
@@ -19,9 +19,7 @@ public class AuditorForm extends javax.swing.JFrame {
     protected SessionService sessionService;
     protected Session session;
 
-//    public AuditorForm() {
-//        initComponents();
-//    }
+ 
     /**
      * Creates new form AuditorForm
      *
@@ -128,14 +126,13 @@ public class AuditorForm extends javax.swing.JFrame {
 
     private void showMovementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMovementsActionPerformed
         // TODO add your handling code here:
-
-        // TODO add your handling code here:
+      
         String[] columnas = {"ID", "Usuario", "Fecha", "Movimiento"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
         jTable1.setModel(table);
 
         AuditorService auditorService = new AuditorService();
-        //TODO create entity movement?
+      
         List<Movement> movements = auditorService.listMovements();
 
         System.out.println(movements.size());
@@ -150,35 +147,11 @@ public class AuditorForm extends javax.swing.JFrame {
 
             table.addRow(row);
         }
-        //this.getClass().getMethod(name, null);
+     
         sessionService.setQuery(session.getUser(), new Date(),
                 auditorService.getClass() + "listMovement()");
     }//GEN-LAST:event_showMovementsActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        //java.awt.EventQueue.invokeLater(() -> new AuditorForm().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
