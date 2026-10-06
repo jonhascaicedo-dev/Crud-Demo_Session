@@ -193,9 +193,9 @@ public class CreateClient extends javax.swing.JFrame {
                 client.setSaldo(monto);
 
                 if (clientService.createClient(client)) {
-                    JOptionPane.showMessageDialog(null, "Error al crear el usuario");
+                    JOptionPane.showMessageDialog(null, "Error al crear el cliente");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Usuario creado");
+                    JOptionPane.showMessageDialog(null, "Cliente creado");
                     nombreField.setText("");
                     claveField.setText("");
                     correoField.setText("");
