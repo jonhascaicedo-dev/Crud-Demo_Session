@@ -2,11 +2,11 @@ package err;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class Error extends Exception {
 
-    String codeerror;
+    protected String codeerror;
     
     public Error(String message) {
         this.codeerror = message;
@@ -14,19 +14,12 @@ public class Error extends Exception {
     public String getCodeerror(){
         
         String errorcode = "";
-        switch (this.codeerror) {
-            case "user null":
-                errorcode = "el usuario es nullo";
-                break;
-            case "login null":
-                errorcode = "error de login";
-                break;
-            case "colita":
-                errorcode = "colita pedorra";
-                break;
-            default:
-                errorcode = "error inesperado";
-        }
+        errorcode = switch (this.codeerror) {
+            case "user null" -> "el usuario es nullo";
+            case "login null" -> "error de login";
+            case "colita" -> "colita pedorra";
+            default -> "error inesperado";
+        };
         return errorcode;
     }
 }

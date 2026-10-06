@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -39,9 +39,10 @@ public class UserService extends ServiceApp {
      ***/
     public List<User> listUsers() {
 
+        List<User> list;
         try {
 
-            List<User> list = new ArrayList<>();
+            list  = new ArrayList<>();
 
             String sql = "SELECT * FROM login";
 
@@ -62,7 +63,7 @@ public class UserService extends ServiceApp {
             return list;
 
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Error" + error);
+            
             return null;
         }
     }

@@ -17,11 +17,13 @@ public class CreateClient extends javax.swing.JFrame {
     protected Session session;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CreateClient.class.getName());
 
-    /***
-     * 
-     * 
-     * @param s Session 
-     **/
+    /**
+     * *
+     *
+     *
+     * @param s Session
+     *
+     */
     public CreateClient(Session s) {
 
         sessionservice = new SessionService();
@@ -42,13 +44,13 @@ public class CreateClient extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        nombreFIeld = new javax.swing.JTextField();
+        nombreField = new javax.swing.JTextField();
         claveField = new javax.swing.JTextField();
         correoField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        crearClientBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         montoField = new javax.swing.JTextField();
 
@@ -56,10 +58,10 @@ public class CreateClient extends javax.swing.JFrame {
 
         jLabel1.setText("Crear cliente");
 
-        nombreFIeld.setText(" ");
-        nombreFIeld.addFocusListener(new java.awt.event.FocusAdapter() {
+        nombreField.setText(" ");
+        nombreField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreFIeldFocusGained(evt);
+                nombreFieldFocusGained(evt);
             }
         });
 
@@ -83,8 +85,8 @@ public class CreateClient extends javax.swing.JFrame {
 
         jLabel4.setText("Correo ");
 
-        jButton1.setText("Crear ");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        crearClientBtn.setText("Crear ");
+        crearClientBtn.addActionListener(this::crearClientBtnActionPerformed);
 
         jLabel5.setText("Monto");
 
@@ -103,7 +105,7 @@ public class CreateClient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1)
+                        .addComponent(crearClientBtn)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -116,7 +118,7 @@ public class CreateClient extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addGap(91, 91, 91)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nombreFIeld)
+                                .addComponent(nombreField)
                                 .addComponent(claveField)
                                 .addComponent(correoField)
                                 .addComponent(montoField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))))
@@ -130,7 +132,7 @@ public class CreateClient extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,46 +147,63 @@ public class CreateClient extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(montoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(crearClientBtn)
                 .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void crearClientBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearClientBtnActionPerformed
 
         ClientService clientService = new ClientService();
         Client client = new Client();
-        if (!"".equals(nombreFIeld.getText())) {
-            client.setName(nombreFIeld.getText());
-        } else {
-            JOptionPane.showMessageDialog(null, "Digite el nombre!");
-        }
-        if (!"".equals(claveField.getText())) {
 
-            client.setPassword(claveField.getText());
-        } else {
-            JOptionPane.showMessageDialog(null, "Digite la clave!");
-        }
-        if (!"".equals(correoField.getText())) {
-            client.setCorreo(correoField.getText());
-        } else {
-            JOptionPane.showMessageDialog(null, "Digite el correo!");
-        }
-        if (!"".equals(montoField.getText())) {
-            JOptionPane.showMessageDialog(null, "Digite el monto!");
-        }else{
-            int monto = Integer.parseInt(montoField.getText());
-            client.setSaldo(monto);
+        String nombre = nombreField.getText();
+        String clave = claveField.getText();
+        String correo = correoField.getText();
+        int monto = 0;
+
+        try {
+            monto = Integer.parseInt(montoField.getText());
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(null, "Digite un monto valido " + monto);
         }
 
-        if (clientService.createClient(client)) {
-            JOptionPane.showMessageDialog(null, "Cliente creado!");
+        /*
+            TODO crear las validaciones de las entradas de datos
+            Restriccciones correo(longitud, caracteres), 
+            monto(intervalo, solo numeros), 
+        */
+        if (nombre.isBlank()
+                || clave.isBlank()
+                || correo.isBlank()
+                || montoField.getText().isBlank()) {
+
+            JOptionPane.showMessageDialog(null, "Campos obligatorios");
         } else {
-            JOptionPane.showMessageDialog(null, "Erro al crear el suaurio!");
+
+            if (monto > 0) {
+
+                client.setName(nombre);
+                client.setPassword(clave);
+                client.setCorreo(correo);
+                client.setSaldo(monto);
+
+                if (clientService.createClient(client)) {
+                    JOptionPane.showMessageDialog(null, "Error al crear el usuario");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario creado");
+                    nombreField.setText("");
+                    claveField.setText("");
+                    correoField.setText("");
+                    montoField.setText("");
+                }
+            }
         }
+
         /**
          * Auditory subroutine
          *
@@ -192,16 +211,12 @@ public class CreateClient extends javax.swing.JFrame {
         sessionservice.setQuery(session.getUser(), new Date(),
                 clientService.getClass() + "createClient()");
 
-        AdminForm adminForm = new AdminForm(session);
-        adminForm.setVisible(true);
-        this.setVisible(false);
+    }//GEN-LAST:event_crearClientBtnActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void nombreFIeldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreFIeldFocusGained
+    private void nombreFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreFieldFocusGained
         // TODO add your handling code here:
-        nombreFIeld.setText("");
-    }//GEN-LAST:event_nombreFIeldFocusGained
+        nombreField.setText("");
+    }//GEN-LAST:event_nombreFieldFocusGained
 
     private void claveFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_claveFieldFocusGained
         // TODO add your handling code here:
@@ -222,13 +237,13 @@ public class CreateClient extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField claveField;
     private javax.swing.JTextField correoField;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton crearClientBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField montoField;
-    private javax.swing.JTextField nombreFIeld;
+    private javax.swing.JTextField nombreField;
     // End of variables declaration//GEN-END:variables
 }

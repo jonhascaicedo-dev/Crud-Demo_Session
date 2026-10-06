@@ -60,7 +60,4 @@ public class User {
         this.pwd = pwd;
     }
 
-    public User() {
-    }
-
 }

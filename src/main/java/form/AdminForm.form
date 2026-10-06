@@ -31,7 +31,7 @@
                   <Component id="labeluser" max="32767" attributes="0"/>
                   <Component id="buttonCreateClient" alignment="0" max="32767" attributes="0"/>
                   <Component id="buttonBuscarClient" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="fieldCliente" alignment="0" max="32767" attributes="0"/>
                   <Component id="buttonCreateUsr" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -56,7 +56,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonCreateUsr" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                      <Component id="fieldCliente" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="buttonBuscarClient" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -127,12 +127,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBuscarClientActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="fieldCliente">
       <Properties>
         <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField1FocusGained"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fieldClienteFocusGained"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCreateUsr">

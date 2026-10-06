@@ -2,7 +2,7 @@ package err;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class Err_login {
 

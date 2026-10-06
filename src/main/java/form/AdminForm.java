@@ -18,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminForm extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminForm.class.getName());
     protected Session session;
     protected SessionService sessionservice;
 
@@ -27,6 +26,8 @@ public class AdminForm extends javax.swing.JFrame {
      *
      *
      * @param s
+     * <p>
+     * Session</p>
      *
      */
     public AdminForm(Session s) {
@@ -66,7 +67,7 @@ public class AdminForm extends javax.swing.JFrame {
         tableResult = new javax.swing.JTable();
         buttonCreateClient = new javax.swing.JButton();
         buttonBuscarClient = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        fieldCliente = new javax.swing.JTextField();
         buttonCreateUsr = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,10 +96,10 @@ public class AdminForm extends javax.swing.JFrame {
         buttonBuscarClient.setText("Buscar cliente");
         buttonBuscarClient.addActionListener(this::buttonBuscarClientActionPerformed);
 
-        jTextField1.setText(" ");
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        fieldCliente.setText(" ");
+        fieldCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                fieldClienteFocusGained(evt);
             }
         });
 
@@ -117,7 +118,7 @@ public class AdminForm extends javax.swing.JFrame {
                     .addComponent(labeluser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonCreateClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonBuscarClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(fieldCliente)
                     .addComponent(buttonCreateUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,7 +140,7 @@ public class AdminForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonCreateUsr)
                         .addGap(9, 9, 9)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(buttonBuscarClient))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -149,8 +150,15 @@ public class AdminForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+      /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * instancias del evento</p>
+     */
     private void buttonListClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonListClientActionPerformed
-        // TODO add your handling code here:
 
         String[] columnas = {"ID", "Nombre", "clave", "correo", "saldo", "Editar", "Borrar"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
@@ -179,8 +187,17 @@ public class AdminForm extends javax.swing.JFrame {
         sessionservice.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() list clients");
     }//GEN-LAST:event_buttonListClientActionPerformed
 
+      /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonListUserActionPerformed
-        // TODO add your handling code here:
+
         String[] columnas = {"ID", "Nombre", "clave", "correo"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
         tableResult.setModel(table);
@@ -204,8 +221,16 @@ public class AdminForm extends javax.swing.JFrame {
         sessionservice.setQuery(session.getUser(), new Date(), userService.getClass() + "createClient() list users");
     }//GEN-LAST:event_buttonListUserActionPerformed
 
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonCreateClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateClientActionPerformed
-        // TODO add your handling code here:
 
         if (false == sessionservice.checkSession(session)) {
             buttonCreateClient.setEnabled(false);
@@ -215,14 +240,22 @@ public class AdminForm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_buttonCreateClientActionPerformed
 
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonBuscarClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarClientActionPerformed
-        // TODO add your handling code here:
 
         String[] columnas = {"ID", "Nombre", "clave", "correo", "saldo", "Editar", "Borrar"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
         tableResult.setModel(table);
 
-        String nombre = jTextField1.getText();
+        String nombre = fieldCliente.getText();
         ClientService clientService = new ClientService();
         List<Client> clients = clientService.findClient(nombre);
 
@@ -249,21 +282,37 @@ public class AdminForm extends javax.swing.JFrame {
         sessionservice.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() find users");
     }//GEN-LAST:event_buttonBuscarClientActionPerformed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        // TODO add your handling code here:
-        jTextField1.setText("");
-    }//GEN-LAST:event_jTextField1FocusGained
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
+    private void fieldClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldClienteFocusGained
 
+        fieldCliente.setText("");
+    }//GEN-LAST:event_fieldClienteFocusGained
+
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonCreateUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateUsrActionPerformed
-        // TODO add your handling code here:
 
-//        if (false == sessionservice.checkSession(session)) {
-//            buttonCreateUsr.setEnabled(false);
-//        }
-        CreateUser createUser = new CreateUser(session);
-        createUser.setVisible(true);
-        this.setVisible(false);
-
+        if (false == sessionservice.checkSession(session)) {
+            buttonCreateUsr.setEnabled(false);
+            CreateUser createUser = new CreateUser(session);
+            createUser.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_buttonCreateUsrActionPerformed
 
 
@@ -273,8 +322,8 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton buttonCreateUsr;
     private javax.swing.JButton buttonListClient;
     private javax.swing.JButton buttonListUser;
+    private javax.swing.JTextField fieldCliente;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labeluser;
     private javax.swing.JTable tableResult;
     // End of variables declaration//GEN-END:variables
