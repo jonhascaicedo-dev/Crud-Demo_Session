@@ -1,7 +1,10 @@
 package form;
 
 import cruddemo.SessionService;
+import cruddemo.UserService;
 import entity.Session;
+import entity.User;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,12 +59,32 @@ public class CreateUser extends javax.swing.JFrame {
         crearBtn.addActionListener(this::crearBtnActionPerformed);
 
         nombreField.setText(" ");
+        nombreField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nombreFieldFocusGained(evt);
+            }
+        });
 
         claveField.setText(" ");
+        claveField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                claveFieldFocusGained(evt);
+            }
+        });
 
         rolField.setText(" ");
+        rolField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                rolFieldFocusGained(evt);
+            }
+        });
 
         correoField.setText(" ");
+        correoField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                correoFieldFocusGained(evt);
+            }
+        });
 
         jLabel2.setText("Nombre");
 
@@ -130,9 +153,59 @@ public class CreateUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void crearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBtnActionPerformed
-        // TODO add your handling code here:
-        System.out.println("onlcick event");
+        
+        UserService userservice = new UserService();
+        
+        String nombre = nombreField.getText();
+        String clave = claveField.getText();
+        String rol = rolField.getText();
+        String correo = correoField.getText();
+        
+           if (nombre.isBlank()
+                || clave.isBlank()
+                || rol.isBlank()
+                || correo.isBlank()) {
+               JOptionPane.showMessageDialog(null, "Campos obligatorios");
+           }else{
+               
+               User user = new User();
+                       
+               user.setUser(nombre);
+               user.setRol(rol);
+               user.setPwd(clave);
+               user.setEmail(correo);
+               
+               if (userservice.createUser(user)) {
+                    JOptionPane.showMessageDialog(null, "Error al crear el usuario");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario creado");
+                    nombreField.setText("");
+                    claveField.setText("");
+                    correoField.setText("");   
+                    rolField.setText("");
+                }
+           }
     }//GEN-LAST:event_crearBtnActionPerformed
+
+    private void nombreFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreFieldFocusGained
+        // TODO add your handling code here:
+        nombreField.setText("");
+    }//GEN-LAST:event_nombreFieldFocusGained
+
+    private void claveFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_claveFieldFocusGained
+        // TODO add your handling code here:
+        claveField.setText("");
+    }//GEN-LAST:event_claveFieldFocusGained
+
+    private void rolFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rolFieldFocusGained
+        // TODO add your handling code here:
+        rolField.setText("");
+    }//GEN-LAST:event_rolFieldFocusGained
+
+    private void correoFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correoFieldFocusGained
+        // TODO add your handling code here:
+        correoField.setText("");
+    }//GEN-LAST:event_correoFieldFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
