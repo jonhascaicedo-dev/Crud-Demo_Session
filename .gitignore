@@ -1,1 +1,10 @@
 /target/
+src/main/resources/config-local.properties
+# Archivos de credenciales locales
+.env
+config-local.properties
+
+# Carpetas de construcción
+/target/
+/build/
+/nbproject/private/
