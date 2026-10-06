@@ -53,6 +53,7 @@ public class CreateUser extends javax.swing.JFrame {
         jLabel1.setText("Crear usuario");
 
         crearBtn.setText("Crear");
+        crearBtn.addActionListener(this::crearBtnActionPerformed);
 
         nombreField.setText(" ");
 
@@ -127,6 +128,11 @@ public class CreateUser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void crearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBtnActionPerformed
+        // TODO add your handling code here:
+        System.out.println("onlcick event");
+    }//GEN-LAST:event_crearBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
