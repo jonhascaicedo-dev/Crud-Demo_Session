@@ -28,22 +28,14 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="buttonListClient" max="32767" attributes="0"/>
                   <Component id="buttonListUser" max="32767" attributes="0"/>
-                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="labeluser" max="32767" attributes="0"/>
                   <Component id="buttonCreateClient" alignment="0" max="32767" attributes="0"/>
                   <Component id="buttonBuscarClient" alignment="0" max="32767" attributes="0"/>
                   <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
                   <Component id="buttonCreateUsr" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Component id="labelusr" min="-2" pref="109" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="452" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="452" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -52,10 +44,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelusr" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="labeluser" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -79,14 +68,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="labeluser">
       <Properties>
         <Property name="text" type="java.lang.String" value="Administrador de usuarios"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelusr">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Usuario: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonListUser">
