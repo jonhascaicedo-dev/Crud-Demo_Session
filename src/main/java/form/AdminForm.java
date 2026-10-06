@@ -316,6 +316,7 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCreateUsrActionPerformed
 
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBuscarClient;
     private javax.swing.JButton buttonCreateClient;

@@ -153,6 +153,7 @@ public class AuditorForm extends javax.swing.JFrame {
     }//GEN-LAST:event_showMovementsActionPerformed
 
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

@@ -158,11 +158,6 @@ public class Login extends javax.swing.JFrame {
         password.setText("");
     }//GEN-LAST:event_passwordFocusGained
 
-    public static void main(String[] args) {
-        Login login = new Login(null);
-        login.setVisible(true);
-    }
-//
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton loginButton;

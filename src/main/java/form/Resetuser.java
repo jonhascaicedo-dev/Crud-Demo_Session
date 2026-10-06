@@ -123,6 +123,7 @@ public class Resetuser extends javax.swing.JFrame {
     }//GEN-LAST:event_enviarButtonActionPerformed
 
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel correoLabel;
     private javax.swing.JTextField emailField;
