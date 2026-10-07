@@ -153,11 +153,17 @@ public class Login extends javax.swing.JFrame {
         sessionService.setQuery(session.getUser(), new Date(), serviceLogin+"login");
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    
     private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
         // TODO add your handling code here:
         password.setText("");
     }//GEN-LAST:event_passwordFocusGained
 
+    public static void main(String[] args) {
+        
+        Login login = new Login(null);
+        login.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton loginButton;

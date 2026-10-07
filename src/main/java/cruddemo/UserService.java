@@ -39,7 +39,7 @@ public class UserService extends ServiceApp {
         boolean create = true;
         try {
 
-            String sql = "INSERT INTO user (rol, nombre, pwd, email)"
+            String sql = "INSERT INTO login (rol, nombre, pwd, email)"
                     + " VALUES (?,?,?,?)";
 
             PreparedStatement stmt = connection.prepareStatement(sql);
