@@ -20,14 +20,6 @@ public class User {
         this.rol = rol;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public int getId() {
         return id;
     }
@@ -58,9 +50,6 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
-    }
-
-    public User() {
     }
 
 }

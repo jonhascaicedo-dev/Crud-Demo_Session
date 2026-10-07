@@ -18,40 +18,35 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminForm extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminForm.class.getName());
     protected Session session;
-    protected SessionService sessionService;
+    protected SessionService sessionservice;
 
-    /**
-     * Creates new form admin
-     */
-//    public AdminForm() {
-//        initComponents();
-//    }
     /**
      * *
      *
      *
      * @param s
+     * <p>
+     * Session</p>
      *
      */
     public AdminForm(Session s) {
 
-        sessionService = new SessionService();
-        sessionService.checkSession(s);
+        sessionservice = new SessionService();
 
-        initComponents();
+        if (!sessionservice.checkSession(s)) {//session iniciada
+            initComponents();
+            this.session = sessionservice.getSession(s);
 
-        this.session = s;
+            if ("operator".equals(s.getUser().getRol())) {
+                buttonCreateUsr.setEnabled(false);
+                buttonListUser.setEnabled(false);
+            }
+            if (s.getUser() != null) {
 
-        if ("operator".equals(s.getUser().getRol())) {
-            buttonCreateUsr.setEnabled(false);
-            buttonListUser.setEnabled(false);
-        }
-        if (s.getUser() != null) {
-
-            labelusr.setText(s.getUser().getRol());
-            this.setVisible(true);
+                labeluser.setText("Administrador de usuarios: "
+                        + s.getUser().getRol());
+            }
         }
 
     }
@@ -65,22 +60,19 @@ public class AdminForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        labelusr = new javax.swing.JLabel();
+        labeluser = new javax.swing.JLabel();
         buttonListUser = new javax.swing.JButton();
         buttonListClient = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResult = new javax.swing.JTable();
         buttonCreateClient = new javax.swing.JButton();
         buttonBuscarClient = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        fieldCliente = new javax.swing.JTextField();
         buttonCreateUsr = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Administrador de usuarios");
-
-        labelusr.setText("Usuario: ");
+        labeluser.setText("Administrador de usuarios");
 
         buttonListUser.setText("Listar usuarios");
         buttonListUser.addActionListener(this::buttonListUserActionPerformed);
@@ -104,10 +96,10 @@ public class AdminForm extends javax.swing.JFrame {
         buttonBuscarClient.setText("Buscar cliente");
         buttonBuscarClient.addActionListener(this::buttonBuscarClientActionPerformed);
 
-        jTextField1.setText(" ");
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        fieldCliente.setText(" ");
+        fieldCliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                fieldClienteFocusGained(evt);
             }
         });
 
@@ -123,27 +115,20 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buttonListClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonListUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labeluser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonCreateClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonBuscarClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(fieldCliente)
                     .addComponent(buttonCreateUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(labelusr, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(labelusr))
+                .addComponent(labeluser)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -155,7 +140,7 @@ public class AdminForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonCreateUsr)
                         .addGap(9, 9, 9)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(buttonBuscarClient))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -165,8 +150,15 @@ public class AdminForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+      /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * instancias del evento</p>
+     */
     private void buttonListClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonListClientActionPerformed
-        // TODO add your handling code here:
 
         String[] columnas = {"ID", "Nombre", "clave", "correo", "saldo", "Editar", "Borrar"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
@@ -192,11 +184,20 @@ public class AdminForm extends javax.swing.JFrame {
 
             table.addRow(row);
         }
-        sessionService.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() list clients");
+        sessionservice.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() list clients");
     }//GEN-LAST:event_buttonListClientActionPerformed
 
+      /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonListUserActionPerformed
-        // TODO add your handling code here:
+
         String[] columnas = {"ID", "Nombre", "clave", "correo"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
         tableResult.setModel(table);
@@ -216,14 +217,22 @@ public class AdminForm extends javax.swing.JFrame {
 
             table.addRow(row);
         }
-        //this.getClass().getMethod(name, null);
-        sessionService.setQuery(session.getUser(), new Date(), userService.getClass() + "createClient() list users");
+
+        sessionservice.setQuery(session.getUser(), new Date(), userService.getClass() + "createClient() list users");
     }//GEN-LAST:event_buttonListUserActionPerformed
 
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonCreateClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateClientActionPerformed
-        // TODO add your handling code here:
 
-        if (false == sessionService.checkSession(session)) {
+        if (false == sessionservice.checkSession(session)) {
             buttonCreateClient.setEnabled(false);
         }
         CreateClient createClient = new CreateClient(session);
@@ -231,15 +240,22 @@ public class AdminForm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_buttonCreateClientActionPerformed
 
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonBuscarClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarClientActionPerformed
-        // TODO add your handling code here:
 
-        // TODO add your handling code here:
         String[] columnas = {"ID", "Nombre", "clave", "correo", "saldo", "Editar", "Borrar"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
         tableResult.setModel(table);
 
-        String nombre = jTextField1.getText();
+        String nombre = fieldCliente.getText();
         ClientService clientService = new ClientService();
         List<Client> clients = clientService.findClient(nombre);
 
@@ -263,25 +279,42 @@ public class AdminForm extends javax.swing.JFrame {
 
             table.addRow(row);
         }
-        sessionService.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() find users");
+        sessionservice.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() find users");
     }//GEN-LAST:event_buttonBuscarClientActionPerformed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        // TODO add your handling code here:
-        jTextField1.setText("");
-    }//GEN-LAST:event_jTextField1FocusGained
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
+    private void fieldClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldClienteFocusGained
 
+        fieldCliente.setText("");
+    }//GEN-LAST:event_fieldClienteFocusGained
+
+    /**
+     * *
+     *
+     *
+     * @param evt
+     * <p>
+     * Instancias del evento</p>
+     * 
+     */
     private void buttonCreateUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateUsrActionPerformed
-        // TODO add your handling code here:
 
-        if (false == sessionService.checkSession(session)) {
+        if (false == sessionservice.checkSession(session)) {
             buttonCreateUsr.setEnabled(false);
+            CreateUser createUser = new CreateUser(session);
+            createUser.setVisible(true);
+            this.setVisible(false);
         }
-        CreateUser createUser = new CreateUser(session);
-        createUser.setVisible(true);
-        this.setVisible(false);
-
     }//GEN-LAST:event_buttonCreateUsrActionPerformed
+
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -290,10 +323,9 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton buttonCreateUsr;
     private javax.swing.JButton buttonListClient;
     private javax.swing.JButton buttonListUser;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField fieldCliente;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel labelusr;
+    private javax.swing.JLabel labeluser;
     private javax.swing.JTable tableResult;
     // End of variables declaration//GEN-END:variables
 }

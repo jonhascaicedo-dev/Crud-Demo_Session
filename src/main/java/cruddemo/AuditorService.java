@@ -63,7 +63,7 @@ public class AuditorService extends ServiceApp {
             return result;
 
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Error" + error);
+           
             return null;
         }
     }

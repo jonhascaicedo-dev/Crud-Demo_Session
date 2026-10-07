@@ -3,6 +3,7 @@ package form;
 import cruddemo.SessionService;
 import cruddemo.UserService;
 import entity.Session;
+import entity.User;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,22 +12,24 @@ import javax.swing.JOptionPane;
  */
 public class CreateUser extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CreateUser.class.getName());
-
+    private static final java.util.logging.Logger logger =
+            java.util.logging.Logger.getLogger(CreateUser.class.getName());
     protected SessionService sessionservice;
     protected Session session;
 
     /**
-     * *
+     * Creates new form CreateUser
      *
-     *
-     * @param s <p>Session de usuario</p>
- *
+     * @param s
      */
     public CreateUser(Session s) {
 
         sessionservice = new SessionService();
         if (!sessionservice.checkSession(s)) {//session iniciada
+            jComboBox1  = new javax.swing.JComboBox<>();
+            jComboBox1.addItem("Administrator");
+            jComboBox1.addItem("operator");
+            jComboBox1.addItem("Auditor");
             initComponents();
             this.session = sessionservice.getSession(s);
         }
@@ -41,240 +44,191 @@ public class CreateUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nombrefield = new javax.swing.JTextField();
-        clavefield = new javax.swing.JTextField();
-        correofield = new javax.swing.JTextField();
-        saldoField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        crearBtn = new javax.swing.JButton();
+        nombreField = new javax.swing.JTextField();
+        claveField = new javax.swing.JTextField();
+        rolField = new javax.swing.JTextField();
+        correoField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        nombrefield.setText(" ");
-        nombrefield.addFocusListener(new java.awt.event.FocusAdapter() {
+        jLabel1.setText("Crear usuario");
+
+        crearBtn.setText("Crear");
+        crearBtn.addActionListener(this::crearBtnActionPerformed);
+
+        nombreField.setText(" ");
+        nombreField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                nombrefieldFocusGained(evt);
+                nombreFieldFocusGained(evt);
             }
         });
 
-        clavefield.setText(" ");
-        clavefield.addFocusListener(new java.awt.event.FocusAdapter() {
+        claveField.setText(" ");
+        claveField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                clavefieldFocusGained(evt);
+                claveFieldFocusGained(evt);
             }
         });
 
-        correofield.setText(" ");
-        correofield.addFocusListener(new java.awt.event.FocusAdapter() {
+        rolField.setText(" ");
+        rolField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                correofieldFocusGained(evt);
+                rolFieldFocusGained(evt);
             }
         });
 
-        saldoField.setText(" ");
-        saldoField.addFocusListener(new java.awt.event.FocusAdapter() {
+        correoField.setText(" ");
+        correoField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                saldoFieldFocusGained(evt);
+                correoFieldFocusGained(evt);
             }
         });
 
-        jButton1.setText("crear");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jLabel2.setText("Nombre");
 
-        jLabel1.setText("Nombre");
+        jLabel3.setText("Contraseña");
 
-        jLabel2.setText("Contraseña");
+        jLabel4.setText("Rol");
 
-        jLabel3.setText("Correo");
+        jLabel5.setText("Correo");
 
-        jLabel4.setText("Saldo");
-
-        jLabel5.setText("Crear usuario");
-
-        jMenu4.setText("File");
-
-        jMenuItem3.setText("Admin form");
-        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
-        jMenu4.add(jMenuItem3);
-
-        jMenuItem4.setText("Auditor form");
-        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
-        jMenu4.add(jMenuItem4);
-
-        jMenuItem5.setText("Crear client");
-        jMenu4.add(jMenuItem5);
-
-        jMenuItem6.setText("Reset user");
-        jMenu4.add(jMenuItem6);
-
-        jMenuItem7.setText("jMenuItem7");
-        jMenu4.add(jMenuItem7);
-
-        jMenuBar2.add(jMenu4);
-
-        jMenu5.setText("Edit");
-        jMenuBar2.add(jMenu5);
-
-        setJMenuBar(jMenuBar2);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(clavefield, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(correofield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(saldoField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nombrefield, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(125, 125, 125))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(crearBtn)
+                .addGap(44, 44, 44))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(claveField)
+                    .addComponent(nombreField)
+                    .addComponent(rolField)
+                    .addComponent(correoField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel5)
-                .addGap(29, 29, 29)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(nombrefield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(clavefield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1)
+                                .addGap(32, 32, 32)
+                                .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(correofield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saldoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(45, 45, 45)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(claveField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rolField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(correoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5))
+                .addGap(40, 40, 40)
+                .addComponent(crearBtn)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void crearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBtnActionPerformed
+        
+        UserService userservice = new UserService();
+        
+        String nombre = nombreField.getText();
+        String clave = claveField.getText();
+        String rol = rolField.getText();
+        String correo = correoField.getText();
+        
+           if (nombre.isBlank()
+                || clave.isBlank()
+                || rol.isBlank()
+                || correo.isBlank()) {
+               JOptionPane.showMessageDialog(null, "Campos obligatorios");
+           }else{
+               
+               User user = new User();
+                       
+               user.setUser(nombre);
+               user.setRol(rol);
+               user.setPwd(clave);
+               user.setEmail(correo);
+               
+               if (userservice.createUser(user)) {
+                    JOptionPane.showMessageDialog(null, "Error al crear el usuario");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario creado");
+                    nombreField.setText("");
+                    claveField.setText("");
+                    correoField.setText("");   
+                    rolField.setText("");
+                }
+           }
+    }//GEN-LAST:event_crearBtnActionPerformed
+
+    private void nombreFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreFieldFocusGained
         // TODO add your handling code here:
+        nombreField.setText("");
+    }//GEN-LAST:event_nombreFieldFocusGained
 
-        String nombre = nombrefield.getText();
-        String pwd = clavefield.getText();
-
-        if ("".equals(correofield.getText())) {
-            JOptionPane.showConfirmDialog(null, "digite el correo");
-        }
-        if ("".equals(pwd)) {
-            JOptionPane.showConfirmDialog(null, "digite la clave");
-        }
-        if ("".equals(nombre)) {
-            JOptionPane.showConfirmDialog(null, "digite el nombre");
-        }
-
-        if ("".equals(saldoField.getText())) {
-            JOptionPane.showConfirmDialog(null, "digite el saldo");
-        }
-        try {
-
-            UserService userService = new UserService();
-
-//            int saldo = Integer.parseInt(saldoField.getText());
-//            System.out.println(saldo);
-//            userService.createUser(new User());
-        } catch (NumberFormatException nfe) {
-            JOptionPane.showConfirmDialog(null, "Digite un valor numerico");
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void nombrefieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombrefieldFocusGained
+    private void claveFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_claveFieldFocusGained
         // TODO add your handling code here:
-        nombrefield.setText("");
-    }//GEN-LAST:event_nombrefieldFocusGained
+        claveField.setText("");
+    }//GEN-LAST:event_claveFieldFocusGained
 
-    private void clavefieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_clavefieldFocusGained
+    private void rolFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rolFieldFocusGained
         // TODO add your handling code here:
-        clavefield.setText("");
-    }//GEN-LAST:event_clavefieldFocusGained
+        rolField.setText("");
+    }//GEN-LAST:event_rolFieldFocusGained
 
-    private void correofieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correofieldFocusGained
+    private void correoFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correoFieldFocusGained
         // TODO add your handling code here:
-        correofield.setText("");
-    }//GEN-LAST:event_correofieldFocusGained
-
-    private void saldoFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saldoFieldFocusGained
-        // TODO add your handling code here:
-        saldoField.setText("");
-    }//GEN-LAST:event_saldoFieldFocusGained
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        AdminForm adminForm = new AdminForm(session);
-        adminForm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-
-        AuditorForm auditorForm = new AuditorForm(session);
-        auditorForm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        correoField.setText("");
+    }//GEN-LAST:event_correoFieldFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField clavefield;
-    private javax.swing.JTextField correofield;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField claveField;
+    private javax.swing.JTextField correoField;
+    private javax.swing.JButton crearBtn;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JTextField nombrefield;
-    private javax.swing.JTextField saldoField;
+    private javax.swing.JTextField nombreField;
+    private javax.swing.JTextField rolField;
     // End of variables declaration//GEN-END:variables
 }

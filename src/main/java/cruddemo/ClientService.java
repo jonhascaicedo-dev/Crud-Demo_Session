@@ -1,13 +1,14 @@
 package cruddemo;
 
 import entity.Client;
+import form.AdminForm;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
 
 /**
  *
@@ -15,22 +16,31 @@ import javax.swing.JOptionPane;
  */
 public class ClientService extends ServiceApp {
 
+    private static final java.util.logging.Logger logger =
+            java.util.logging.Logger.getLogger(AdminForm.class.getName());
+
     protected Connection connection;
 
     public ClientService() {
-        
+
         connection = super.getConnection();
     }
 
     /**
+     * *
      *
-     * @param Client 
-     * @return List
-    **
+     *
+     *
+     * @param client
+     * <p>
+     * Client Clase modelo</p>
+     * @return boolean
+     * <p>
+     * return true si guarda el registro, false cuando hay error sql</p> *
      */
     public boolean createClient(Client client) {
 
-        boolean create = false;
+        boolean create = true;
         try {
 
             String sql = "INSERT INTO cliente (nombre, pwd, correo, saldo)"
@@ -47,16 +57,15 @@ public class ClientService extends ServiceApp {
 
         } catch (SQLException error) {
 
-            JOptionPane.showMessageDialog(null, "Error:!" + error);
-
+            logger.log(Level.SEVERE, error.getMessage());
+            return create;
         }
         return create;
     }
 
     /**
-     * 
-     * @return List
-    **
+     *
+     * @return List *
      */
     public List<Client> listClients() {
 
@@ -85,7 +94,7 @@ public class ClientService extends ServiceApp {
             return list;
 
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Error" + error);
+
             return null;
         }
     }
@@ -94,8 +103,7 @@ public class ClientService extends ServiceApp {
      * TODO buscar por una llave unique
      *
      * @param nombre
-     * @return 
-    **
+     * @return *
      */
     public List<Client> findClient(String nombre) {
 
@@ -125,7 +133,7 @@ public class ClientService extends ServiceApp {
             return list;
 
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Error" + error);
+
             return null;
         }
     }

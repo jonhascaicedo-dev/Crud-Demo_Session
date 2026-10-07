@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class AuditorForm extends javax.swing.JFrame {
 
@@ -19,9 +19,7 @@ public class AuditorForm extends javax.swing.JFrame {
     protected SessionService sessionService;
     protected Session session;
 
-//    public AuditorForm() {
-//        initComponents();
-//    }
+ 
     /**
      * Creates new form AuditorForm
      *
@@ -128,14 +126,13 @@ public class AuditorForm extends javax.swing.JFrame {
 
     private void showMovementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMovementsActionPerformed
         // TODO add your handling code here:
-
-        // TODO add your handling code here:
+      
         String[] columnas = {"ID", "Usuario", "Fecha", "Movimiento"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
         jTable1.setModel(table);
 
         AuditorService auditorService = new AuditorService();
-        //TODO create entity movement?
+      
         List<Movement> movements = auditorService.listMovements();
 
         System.out.println(movements.size());
@@ -150,7 +147,7 @@ public class AuditorForm extends javax.swing.JFrame {
 
             table.addRow(row);
         }
-        //this.getClass().getMethod(name, null);
+     
         sessionService.setQuery(session.getUser(), new Date(),
                 auditorService.getClass() + "listMovement()");
     }//GEN-LAST:event_showMovementsActionPerformed

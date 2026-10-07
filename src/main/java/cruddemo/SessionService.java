@@ -10,12 +10,21 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author USUARIO
+ * @author johans caicedo
  */
 public class SessionService extends ServiceApp {
 
     protected Session session;
 
+    /**
+     * *
+     *
+     *
+     * @param s Session
+     * @return Session instancia de la session inicializada
+     *
+     **
+     */
     public Session getSession(Session s) {
 
         if (s == null) {
@@ -31,23 +40,45 @@ public class SessionService extends ServiceApp {
         return this.session;
     }
 
+    /**
+     * *
+     *
+     *
+     * @param s Sesssion instancia a setear 
+     *
+     */
     public void setSession(Session s) {
-        this.session = s;
+
+        if (s != null) {
+            this.session = s;
+        } else {
+            User usuario = new User();
+            session = new Session(usuario);
+        }
+
     }
 
     /**
      * *
      *
      *
-     * @param user usuario que realiza el query
-     * @param date fecha en la que hace el query
-     * @param movement Tipo de query
-     * @return 
-     *
-     *
+     * @param user
+     * <p>
+     * Usuario que realiza el query</p>
+     * @param date
+     * <p>
+     * Fecha en la que hace el query</p>
+     * @param movement
+     * <p>
+     * Tipo de query</p>
+     * @return boolean
+     * <p>
+     * Tipo de query</p> *
      */
     public boolean setQuery(User user, Date date, String movement) {
 
+        boolean resultado = false;
+        
         try {
 
             Connection con = getConection("auditoryapp", "root", "root");
@@ -58,23 +89,33 @@ public class SessionService extends ServiceApp {
             stmt.setString(1, user.getUser());
             stmt.setString(2, date.toString());
             stmt.setString(3, movement);
-            stmt.execute();
+            resultado = stmt.execute();
             stmt.close();
 
         } catch (SQLException error) {
 
-            JOptionPane.showMessageDialog(null, "Error:!" + error);
+         
 
         }
 
-        return false;
-
+        return resultado;
     }
 
-    public SessionService() {
-
-    }
-
+    /**
+     * *
+     *
+     *
+     * @param url
+     * <p>
+     * Dominio del servidor de base de datos</p>
+     * @param usr
+     * <p>
+     * Usuario de la base de datos</p>
+     * @param pwd
+     * <p>
+     * Contraseña de la basde datos</p>
+     * @return Connection *
+     */
     public static Connection getConection(String url, String usr, String pwd) {
 
         ServiceApp serviceApp = new ServiceApp();
@@ -82,6 +123,12 @@ public class SessionService extends ServiceApp {
         return serviceApp.customConnection(url, usr, pwd);
     }
 
+    /**
+     * *
+     *
+     *
+     * @return Connection *
+     */
     public static Connection getConection() {
 
         ServiceApp serviceApp = new ServiceApp();
@@ -89,13 +136,19 @@ public class SessionService extends ServiceApp {
         return serviceApp.getConnection();
     }
 
+    /**
+     * *
+     *
+     *
+     * @param session
+     * @return boolean *
+     */
     public boolean checkSession(Session session) {
 
         boolean x1 = false;
 
         if (session == null) {
             x1 = true;
-            throw new WrongThreadException("Error cross script exception");
         }
         return x1;
     }
