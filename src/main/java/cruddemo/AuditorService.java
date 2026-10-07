@@ -1,13 +1,14 @@
 package cruddemo;
 
 import entity.Movement;
+import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -18,18 +19,42 @@ public class AuditorService extends ServiceApp {
     protected Connection connection;
 
     public AuditorService() {
-        connection = super.customConnection("auditoryapp", "", "");
+        connection = super.customConnection("auditoryapp", "root", "root");
     }
 
      /***
      * 
-     * @return List Movement
-     * @see Get movements from auditor layer
+     * @return List operadores del aplicativo
+     * @see  Retorma una lista de usuarios creados.
      ***/
-    public List<Movement> listLogin() {
+    public List<User> listLogin() {
         
-        return null;
-        
+         try {
+
+            List<User> result=  new ArrayList<>();
+
+            String sql = "SELECT * FROM login";
+            connection = super.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                User user = new User();
+
+                user.setId(rs.getInt("id"));
+                user.setUser(rs.getString("nombre"));
+                user.setPwd(rs.getString("pwd"));
+                user.setEmail(rs.getString("email"));
+                
+                result.add(user);
+            }
+
+            return result;
+
+        } catch (SQLException error) {
+           
+            return null;
+        }
     }
     
     /***

@@ -4,6 +4,7 @@ import cruddemo.AuditorService;
 import cruddemo.SessionService;
 import entity.Movement;
 import entity.Session;
+import entity.User;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -19,23 +20,26 @@ public class AuditorForm extends javax.swing.JFrame {
     protected SessionService sessionService;
     protected Session session;
 
- 
     /**
      * Creates new form AuditorForm
      *
-     * @param s
+     * @param s Session
      */
     public AuditorForm(Session s) {
+
         sessionService = new SessionService();
         sessionService.checkSession(s);
 
-        initComponents();
+        if (!sessionService.checkSession(s)) {//session iniciada
 
-        this.session = s;
-        if (s.getUser() != null) {
+            initComponents();
+            this.session = sessionService.getSession(s);
+            if (s.getUser() != null) {
 
-            jLabel1.setText(s.getUser().getUser());
-            this.setVisible(true);
+                labeluser.setText("Usuario: "+
+                        s.getUser().getRol());
+                this.setVisible(true);
+            }
         }
     }
 
@@ -49,21 +53,21 @@ public class AuditorForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jLabel1 = new javax.swing.JLabel();
+        labeluser = new javax.swing.JLabel();
         showLogin = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableResult = new javax.swing.JTable();
         showMovements = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Auditor panel");
+        labeluser.setText("Auditor panel");
 
         showLogin.setText("Ver login");
         showLogin.addActionListener(this::showLoginActionPerformed);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableResult.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -74,7 +78,7 @@ public class AuditorForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableResult);
 
         showMovements.setText("Ver movimientos");
         showMovements.addActionListener(this::showMovementsActionPerformed);
@@ -92,7 +96,7 @@ public class AuditorForm extends javax.swing.JFrame {
                     .addComponent(showLogin)
                     .addComponent(showMovements)
                     .addComponent(jButton3)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labeluser, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -103,7 +107,7 @@ public class AuditorForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jLabel1)
+                        .addComponent(labeluser)
                         .addGap(53, 53, 53)
                         .addComponent(showLogin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -121,21 +125,42 @@ public class AuditorForm extends javax.swing.JFrame {
 
     private void showLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showLoginActionPerformed
 
-        
+        String[] columnas = {"Id", "rol", "nombre", "clave", "correo"};
+        DefaultTableModel table = new DefaultTableModel(null, columnas);
+        tableResult.setModel(table);
+
+        AuditorService auditorService = new AuditorService();
+        List<User> loginUsers = auditorService.listLogin();
+
+        for (int i = 0; i < loginUsers.size(); i++) {
+            Object[] row = new Object[5];
+            row[0] = loginUsers.get(i);
+            row[1] = loginUsers.get(i);
+            row[2] = loginUsers.get(i);
+            row[3] = loginUsers.get(i);
+            row[4] = loginUsers.get(i);
+
+            System.out.println(row[0] + "-" + row[1] + "-" + row[2] + "-" + row[3]);
+
+            table.addRow(row);
+        }
+
+        sessionService.setQuery(session.getUser(), new Date(),
+                auditorService.getClass() + "list login()");
+
     }//GEN-LAST:event_showLoginActionPerformed
 
     private void showMovementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMovementsActionPerformed
-        // TODO add your handling code here:
-      
-        String[] columnas = {"ID", "Usuario", "Fecha", "Movimiento"};
+         
+        String[] columnas = {"Id", "Usuario", "Fecha", "Movimiento"};
         DefaultTableModel table = new DefaultTableModel(null, columnas);
-        jTable1.setModel(table);
+        tableResult.setModel(table);
 
         AuditorService auditorService = new AuditorService();
-      
+
         List<Movement> movements = auditorService.listMovements();
 
-        System.out.println(movements.size());
+        
         for (int i = 0; i < movements.size(); i++) {
             Object[] row = new Object[4];
             row[0] = movements.get(i);
@@ -147,20 +172,19 @@ public class AuditorForm extends javax.swing.JFrame {
 
             table.addRow(row);
         }
-     
+
         sessionService.setQuery(session.getUser(), new Date(),
                 auditorService.getClass() + "listMovement()");
     }//GEN-LAST:event_showMovementsActionPerformed
 
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labeluser;
     private javax.swing.JButton showLogin;
     private javax.swing.JButton showMovements;
+    private javax.swing.JTable tableResult;
     // End of variables declaration//GEN-END:variables
 }

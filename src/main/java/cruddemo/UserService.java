@@ -1,6 +1,5 @@
 package cruddemo;
 
-import static com.mysql.cj.conf.PropertyKey.logger;
 import entity.User;
 import form.AdminForm;
 import java.sql.Connection;
@@ -31,41 +30,35 @@ public class UserService extends ServiceApp {
      *
      *
      * @param user
-     * @return 
+     * @return
      *
      */
     public boolean createUser(User user) {
+        String sql = "INSERT INTO login (rol, nombre, pwd, email) VALUES (?, ?, ?, ?)";
 
-        boolean create = true;
-        try {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            String sql = "INSERT INTO login (rol, nombre, pwd, email)"
-                    + " VALUES (?,?,?,?)";
-
-            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, user.getRol());
             stmt.setString(2, user.getUser());
             stmt.setString(3, user.getPwd());
             stmt.setString(4, user.getEmail());
 
-            create = stmt.execute();
-            stmt.close();
+            // executeUpdate() devuelve el número de filas insertadas
+            int rowsInserted = stmt.executeUpdate();
+
+            return rowsInserted > 0;
 
         } catch (SQLException error) {
-
-            logger.log(Level.SEVERE, error.getMessage());
+            logger.log(Level.SEVERE, error.getMessage(), error);
             return false;
         }
-        return create;
-
     }
 
     /**
      * *
      *
      *
-     * @return user List
-     **
+     * @return user List *
      */
     public List<User> listUsers() {
 

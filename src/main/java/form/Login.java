@@ -24,7 +24,8 @@ public class Login extends javax.swing.JFrame {
      * @param session
      */
     public Login(Session session) {
-
+        
+        sessionService = new SessionService();
         initComponents();
         if (session == null) {
 
@@ -119,10 +120,13 @@ public class Login extends javax.swing.JFrame {
                     - El servicio debe retornar una instancia de Usuario Class != null
              */
             this.session = new Session(usr);
-            this.sessionService = new SessionService();
+
             this.sessionService.setSession(session);
-        
-            
+
+            if ("auditor".equals(usr.getRol())) {
+                AuditorForm auditorForm = new AuditorForm(session);
+                auditorForm.setVisible(true);
+            }
             adminform = new AdminForm(this.session);
             adminform.setVisible(true);
             this.setVisible(false);
@@ -139,7 +143,7 @@ public class Login extends javax.swing.JFrame {
 
                 Resetuser resetUsr = new Resetuser(session);
                 resetUsr.setVisible(true);
-            } else {    
+            } else {
 
                 cntLogin = cntLogin += 1;
 
@@ -150,17 +154,17 @@ public class Login extends javax.swing.JFrame {
                 prompt.setVisible(true);
             }
         }
-        sessionService.setQuery(session.getUser(), new Date(), serviceLogin+"login");
+        sessionService.setQuery(session.getUser(), new Date(), serviceLogin + "login");
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    
+
     private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
         // TODO add your handling code here:
         password.setText("");
     }//GEN-LAST:event_passwordFocusGained
 
     public static void main(String[] args) {
-        
+
         Login login = new Login(null);
         login.setVisible(true);
     }

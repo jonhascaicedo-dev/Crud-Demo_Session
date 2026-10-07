@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class CreateUser extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger =
-            java.util.logging.Logger.getLogger(CreateUser.class.getName());
+    private static final java.util.logging.Logger logger
+            = java.util.logging.Logger.getLogger(CreateUser.class.getName());
     protected SessionService sessionservice;
     protected Session session;
 
@@ -26,11 +26,12 @@ public class CreateUser extends javax.swing.JFrame {
 
         sessionservice = new SessionService();
         if (!sessionservice.checkSession(s)) {//session iniciada
-            jComboBox1  = new javax.swing.JComboBox<>();
+
+            initComponents();
+
             jComboBox1.addItem("Administrator");
             jComboBox1.addItem("operator");
             jComboBox1.addItem("Auditor");
-            initComponents();
             this.session = sessionservice.getSession(s);
         }
     }
@@ -48,7 +49,6 @@ public class CreateUser extends javax.swing.JFrame {
         crearBtn = new javax.swing.JButton();
         nombreField = new javax.swing.JTextField();
         claveField = new javax.swing.JTextField();
-        rolField = new javax.swing.JTextField();
         correoField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -77,13 +77,6 @@ public class CreateUser extends javax.swing.JFrame {
             }
         });
 
-        rolField.setText(" ");
-        rolField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                rolFieldFocusGained(evt);
-            }
-        });
-
         correoField.setText(" ");
         correoField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -99,16 +92,12 @@ public class CreateUser extends javax.swing.JFrame {
 
         jLabel5.setText("Correo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(crearBtn)
-                .addGap(44, 44, 44))
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
@@ -124,11 +113,13 @@ public class CreateUser extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(claveField)
                     .addComponent(nombreField)
-                    .addComponent(rolField)
-                    .addComponent(correoField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                    .addComponent(correoField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(130, 130, 130))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(crearBtn)
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,53 +139,57 @@ public class CreateUser extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rolField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(correoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5))
-                .addGap(40, 40, 40)
+                .addGap(37, 37, 37)
                 .addComponent(crearBtn)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void crearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBtnActionPerformed
-        
+
         UserService userservice = new UserService();
-        
+
         String nombre = nombreField.getText();
         String clave = claveField.getText();
-        String rol = rolField.getText();
+        String rol = jComboBox1.getSelectedItem().toString();
         String correo = correoField.getText();
-        
-           if (nombre.isBlank()
+
+        if (nombre.isBlank()
                 || clave.isBlank()
                 || rol.isBlank()
                 || correo.isBlank()) {
-               JOptionPane.showMessageDialog(null, "Campos obligatorios");
-           }else{
-               
-               User user = new User();
-                       
-               user.setUser(nombre);
-               user.setRol(rol);
-               user.setPwd(clave);
-               user.setEmail(correo);
-               
-               if (userservice.createUser(user)) {
-                    JOptionPane.showMessageDialog(null, "Error al crear el usuario");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuario creado");
-                    nombreField.setText("");
-                    claveField.setText("");
-                    correoField.setText("");   
-                    rolField.setText("");
-                }
-           }
+            JOptionPane.showMessageDialog(null, "Campos obligatorios");
+        } else {
+
+            User user = new User();
+
+            user.setUser(nombre);
+            user.setRol(rol);
+            user.setPwd(clave);
+            user.setEmail(correo);
+
+            if (!userservice.createUser(user)) {
+
+                JOptionPane.showMessageDialog(null, "Error al crear el usuario");
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Usuario creado");
+                nombreField.setText("");
+                claveField.setText("");
+                correoField.setText("");
+
+                AdminForm adminForm = new AdminForm(session);
+                adminForm.setVisible(true);
+                this.setVisible(false);
+            }
+        }
     }//GEN-LAST:event_crearBtnActionPerformed
 
     private void nombreFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreFieldFocusGained
@@ -206,11 +201,6 @@ public class CreateUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         claveField.setText("");
     }//GEN-LAST:event_claveFieldFocusGained
-
-    private void rolFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rolFieldFocusGained
-        // TODO add your handling code here:
-        rolField.setText("");
-    }//GEN-LAST:event_rolFieldFocusGained
 
     private void correoFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correoFieldFocusGained
         // TODO add your handling code here:
@@ -229,6 +219,5 @@ public class CreateUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nombreField;
-    private javax.swing.JTextField rolField;
     // End of variables declaration//GEN-END:variables
 }

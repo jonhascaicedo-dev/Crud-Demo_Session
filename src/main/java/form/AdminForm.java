@@ -35,12 +35,18 @@ public class AdminForm extends javax.swing.JFrame {
         sessionservice = new SessionService();
 
         if (!sessionservice.checkSession(s)) {//session iniciada
+            
             initComponents();
             this.session = sessionservice.getSession(s);
 
             if ("operator".equals(s.getUser().getRol())) {
                 buttonCreateUsr.setEnabled(false);
                 buttonListUser.setEnabled(false);
+                buttonAuditar.setEnabled(false);
+            }
+            if ("auditor".equals(s.getUser().getRol())) {
+                buttonCreateClient.setEnabled(false);
+                buttonCreateUsr.setEnabled(false);
             }
             if (s.getUser() != null) {
 
@@ -69,6 +75,7 @@ public class AdminForm extends javax.swing.JFrame {
         buttonBuscarClient = new javax.swing.JButton();
         fieldCliente = new javax.swing.JTextField();
         buttonCreateUsr = new javax.swing.JButton();
+        buttonAuditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +113,9 @@ public class AdminForm extends javax.swing.JFrame {
         buttonCreateUsr.setText("Crear usuario");
         buttonCreateUsr.addActionListener(this::buttonCreateUsrActionPerformed);
 
+        buttonAuditar.setText("Auditar");
+        buttonAuditar.addActionListener(this::buttonAuditarActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,7 +129,8 @@ public class AdminForm extends javax.swing.JFrame {
                     .addComponent(buttonCreateClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonBuscarClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(fieldCliente)
-                    .addComponent(buttonCreateUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonCreateUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonAuditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -142,7 +153,9 @@ public class AdminForm extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(fieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonBuscarClient))
+                        .addComponent(buttonBuscarClient)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonAuditar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -315,9 +328,16 @@ public class AdminForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonCreateUsrActionPerformed
 
+    private void buttonAuditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAuditarActionPerformed
+        // TODO add your handling code here:
+        AuditorForm auditorform = new AuditorForm(session);
+        auditorform.setVisible(true);
+    }//GEN-LAST:event_buttonAuditarActionPerformed
+
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAuditar;
     private javax.swing.JButton buttonBuscarClient;
     private javax.swing.JButton buttonCreateClient;
     private javax.swing.JButton buttonCreateUsr;

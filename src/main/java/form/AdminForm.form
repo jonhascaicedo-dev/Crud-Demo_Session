@@ -33,6 +33,7 @@
                   <Component id="buttonBuscarClient" alignment="0" max="32767" attributes="0"/>
                   <Component id="fieldCliente" alignment="0" max="32767" attributes="0"/>
                   <Component id="buttonCreateUsr" alignment="0" max="32767" attributes="0"/>
+                  <Component id="buttonAuditar" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="452" max="-2" attributes="0"/>
@@ -59,6 +60,8 @@
                       <Component id="fieldCliente" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="buttonBuscarClient" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="buttonAuditar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
               </Group>
@@ -141,6 +144,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCreateUsrActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonAuditar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auditar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAuditarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
