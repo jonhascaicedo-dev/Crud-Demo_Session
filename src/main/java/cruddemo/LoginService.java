@@ -19,8 +19,8 @@ public class LoginService {
             = "select * from login where nombre=? AND pwd=?";
 
     private String jdbcURL = "jdbc:mysql://localhost:3306/logindemo?useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
+    private String jdbcUsername = "patroclo";
+    private String jdbcPassword = "deudatecnica";
     private static Logger logger = null;
 
     /**

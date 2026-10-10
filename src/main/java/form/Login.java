@@ -123,13 +123,17 @@ public class Login extends javax.swing.JFrame {
 
             this.sessionService.setSession(session);
 
+            System.out.println("" + usr.getRol());
             if ("auditor".equals(usr.getRol())) {
+           
                 AuditorForm auditorForm = new AuditorForm(session);
                 auditorForm.setVisible(true);
             }
-            adminform = new AdminForm(this.session);
-            adminform.setVisible(true);
-            this.setVisible(false);
+            else{
+                adminform = new AdminForm(this.session);
+                adminform.setVisible(true);
+                this.setVisible(false);
+            }
         } else {
 
             err_login = new Err_login();

@@ -6,11 +6,20 @@ import cruddemo.UserService;
 import entity.Client;
 import entity.Session;
 import entity.User;
+import java.awt.HeadlessException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.function.Consumer;
 
 /**
  *
@@ -35,7 +44,7 @@ public class AdminForm extends javax.swing.JFrame {
         sessionservice = new SessionService();
 
         if (!sessionservice.checkSession(s)) {//session iniciada
-            
+
             initComponents();
             this.session = sessionservice.getSession(s);
 
@@ -44,6 +53,7 @@ public class AdminForm extends javax.swing.JFrame {
                 buttonListUser.setEnabled(false);
                 buttonAuditar.setEnabled(false);
             }
+
             if ("auditor".equals(s.getUser().getRol())) {
                 buttonCreateClient.setEnabled(false);
                 buttonCreateUsr.setEnabled(false);
@@ -163,7 +173,7 @@ public class AdminForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-      /**
+    /**
      * *
      *
      *
@@ -173,41 +183,82 @@ public class AdminForm extends javax.swing.JFrame {
      */
     private void buttonListClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonListClientActionPerformed
 
-        String[] columnas = {"ID", "Nombre", "clave", "correo", "saldo", "Editar", "Borrar"};
-        DefaultTableModel table = new DefaultTableModel(null, columnas);
-        tableResult.setModel(table);
+        // 1. Definir columnas incluyendo Editar y Borrar
+        String[] columnas = {"ID", "Nombre", "Clave", "Correo", "Saldo", "Editar", "Borrar"};
+
+        DefaultTableModel tableModel = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // ¡Importante! Las columnas 5 y 6 (los botones) deben ser editables para que funcionen
+                return column == 5 || column == 6;
+            }
+        };
+        tableResult.setModel(tableModel);
 
         ClientService clientService = new ClientService();
-        List<Client> clients = clientService.listClients();
+        //List<Client> clients = clientService.listClients();
 
-        System.out.println(clients.size());
-        for (int i = 0; i < clients.size(); i++) {
-            Object[] row = new Object[7];
-            row[0] = clients.get(i).getId();
-            row[1] = clients.get(i).getName();
-            row[2] = clients.get(i).getPassword();
-            row[3] = clients.get(i).getCorreo();
-            row[4] = clients.get(i).getSaldo();
-            JButton editar = new JButton("Editar");
-
-            JButton borrar = new JButton("Borrar");
-            row[5] = editar;
-            row[6] = borrar;
-            System.out.println(row[0] + "-" + row[1] + "-" + row[2] + "-" + row[3] + "-" + row[4]);
-
-            table.addRow(row);
+        List<Client> clients = new ArrayList<>();
+        
+        for (int i = 0; i < 10; i++) {
+            
+            clients.add(new Client());
         }
-        sessionservice.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() list clients");
+        
+//        if (clients == null || clients.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "No hay clientes registrados.");
+//            return;
+//        }
+
+        // 2. Llenar los datos de los clientes y el texto de los botones ("Editar" / "Borrar")
+        for (Client client : clients) {
+            Object[] row = new Object[7];
+            row[0] = client.getId();
+            row[1] = client.getName();
+            row[2] = client.getPassword();
+            row[3] = client.getCorreo();
+            row[4] = client.getSaldo();
+            row[5] = "Editar";   // Texto que mostrará el botón de la columna 5
+            row[6] = "Borrar";   // Texto que mostrará el botón de la columna 6
+
+            tableModel.addRow(row);
+        }
+
+        // 3. Asignar el Renderizador y el Editor a la columna 5 (Editar)
+        tableResult.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        tableResult.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), rowClicked -> {
+            // ACCIÓN CUANDO HACEN CLIC EN EDITAR
+            int clientId = (int) tableResult.getValueAt(rowClicked, 0); // Obtener ID de la fila
+            String clientName = (String) tableResult.getValueAt(rowClicked, 1);
+
+            JOptionPane.showMessageDialog(this, "Editar cliente ID: " + clientId + " - " + clientName);
+            // Aquí puedes abrir tu formulario de edición pasando el ID
+        }));
+
+        // 4. Asignar el Renderizador y el Editor a la columna 6 (Borrar)
+        tableResult.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+        tableResult.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), rowClicked -> {
+            // ACCIÓN CUANDO HACEN CLIC EN BORRAR
+            int clientId = (int) tableResult.getValueAt(rowClicked, 0);
+
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Deseas eliminar al cliente con ID: " + clientId + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Lógica para borrar en base de datos y refrescar la tabla
+                JOptionPane.showMessageDialog(this, "Cliente eliminado con éxito.");
+                buttonListClientActionPerformed(null); // Refrescar lista
+            }
+        }));
+
     }//GEN-LAST:event_buttonListClientActionPerformed
 
-      /**
+    /**
      * *
      *
      *
      * @param evt
      * <p>
      * Instancias del evento</p>
-     * 
+     *
      */
     private void buttonListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonListUserActionPerformed
 
@@ -241,7 +292,7 @@ public class AdminForm extends javax.swing.JFrame {
      * @param evt
      * <p>
      * Instancias del evento</p>
-     * 
+     *
      */
     private void buttonCreateClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateClientActionPerformed
 
@@ -260,39 +311,50 @@ public class AdminForm extends javax.swing.JFrame {
      * @param evt
      * <p>
      * Instancias del evento</p>
-     * 
+     *
      */
     private void buttonBuscarClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarClientActionPerformed
 
-        String[] columnas = {"ID", "Nombre", "clave", "correo", "saldo", "Editar", "Borrar"};
-        DefaultTableModel table = new DefaultTableModel(null, columnas);
-        tableResult.setModel(table);
+        // 1. Definir columnas (sin los botones directos por ahora para evitar errores visuales)
+        String[] columnas = {"ID", "Nombre", "Clave", "Correo", "Saldo"};
 
-        String nombre = fieldCliente.getText();
+        // 2. Crear el modelo de la tabla y asignarlo
+        DefaultTableModel tableModel = new DefaultTableModel(null, columnas) {
+            // Opcional: hacer que las celdas no sean editables directamente haciendo doble clic
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tableResult.setModel(tableModel);
+
+        // 3. Consumir el servicio
         ClientService clientService = new ClientService();
-        List<Client> clients = clientService.findClient(nombre);
+        List<Client> clients = clientService.listClients();
 
-        System.out.println(clients.size());
-        if (clients.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Usuario no encontrado!");
+        // Validar si la lista viene vacía o nula
+        if (clients == null || clients.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay clientes registrados.");
+            return;
         }
-        for (int i = 0; i < clients.size(); i++) {
-            Object[] row = new Object[7];
-            row[0] = clients.get(i).getId();
-            row[1] = clients.get(i).getName();
-            row[2] = clients.get(i).getPassword();
-            row[3] = clients.get(i).getCorreo();
-            row[4] = clients.get(i).getSaldo();
-            JButton editar = new JButton("Editar");
 
-            JButton borrar = new JButton("Borrar");
-            row[5] = editar;
-            row[6] = borrar;
-            System.out.println(row[0] + "-" + row[1] + "-" + row[2] + "-" + row[3] + "-" + row[4]);
+        // 4. Recorrer la lista y poblar el modelo
+        for (Client client : clients) {
+            Object[] row = new Object[5];
+            row[0] = client.getId();
+            row[1] = client.getName();
+            row[2] = client.getPassword();
+            row[3] = client.getCorreo();
+            row[4] = client.getSaldo();
 
-            table.addRow(row);
+            tableModel.addRow(row);
         }
-        sessionservice.setQuery(session.getUser(), new Date(), clientService.getClass() + "createClient() find users");
+
+        // 5. Registrar la auditoría de la sesión
+        if (session != null && session.getUser() != null) {
+            sessionservice.setQuery(session.getUser(), new Date(), clientService.getClass().getName() + " -> listClients()");
+        }
+
     }//GEN-LAST:event_buttonBuscarClientActionPerformed
 
     /**
@@ -302,7 +364,7 @@ public class AdminForm extends javax.swing.JFrame {
      * @param evt
      * <p>
      * Instancias del evento</p>
-     * 
+     *
      */
     private void fieldClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fieldClienteFocusGained
 
@@ -316,7 +378,7 @@ public class AdminForm extends javax.swing.JFrame {
      * @param evt
      * <p>
      * Instancias del evento</p>
-     * 
+     *
      */
     private void buttonCreateUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateUsrActionPerformed
 
@@ -334,8 +396,66 @@ public class AdminForm extends javax.swing.JFrame {
         auditorform.setVisible(true);
     }//GEN-LAST:event_buttonAuditarActionPerformed
 
+    public AdminForm() throws HeadlessException {
+        initComponents();
+    }
 
-    
+    public static void main(String[] args) {
+        AdminForm adminForm = new AdminForm();
+        adminForm.setVisible(true);
+    }
+
+    class ButtonEditor extends DefaultCellEditor {
+
+        protected JButton button;
+        private String label;
+        private boolean clicked;
+        private int row;
+        private Consumer<Integer> actionOnClick; // Callback para enviar el número de fila
+
+        public ButtonEditor(JCheckBox checkBox, Consumer<Integer> actionOnClick) {
+            super(checkBox);
+            this.actionOnClick = actionOnClick;
+            button = new JButton();
+            button.setOpaque(true);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    fireEditingStopped(); // Detiene la edición de la celda
+                    if (actionOnClick != null) {
+                        actionOnClick.accept(row); // Devuelve la fila seleccionada
+                    }
+                }
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            this.row = row;
+            label = (value == null) ? "" : value.toString();
+            button.setText(label);
+            clicked = true;
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return label;
+        }
+    }
+
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "" : value.toString());
+            return this;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuditar;
     private javax.swing.JButton buttonBuscarClient;

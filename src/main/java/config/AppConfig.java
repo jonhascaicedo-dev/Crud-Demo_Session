@@ -33,7 +33,8 @@ public class AppConfig {
     }
 
     public static String getApiKey() {
-        return props.getProperty("api.thirdparty.key", System.getProperty("api.thirdparty.key"));
+        return props.
+                getProperty("api.thirdparty.key", System.getProperty("api.thirdparty.key"));
     }
 }
 
